@@ -5,6 +5,7 @@ import json
 from collections import defaultdict
 from typing import Dict, List, Union
 from pyrogram import Client
+from pyrogram import enums
 
 id_pattern = re.compile(r'^.\d+$')
 def is_enabled(value, default):
@@ -31,7 +32,7 @@ class evamaria(Client):
             api_id=APP_ID,
             api_hash=API_HASH,
             bot_token=BOT_TOKEN,
-            parse_mode="html",
+            parse_mode=enums.ParseMode.HTML
             sleep_threshold=60
         )
 
