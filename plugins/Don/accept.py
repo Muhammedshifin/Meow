@@ -37,7 +37,7 @@ async def approve(client: Client, message: Message):
     if ACC_SND_LOG == "on":
         await client.send_message(
             chat_id=LOG_CHANNEL
-            text="*#New_Approval\n\nName: {}\n\nChat: {} \n\n Join @sinimapremi**".format(message.from_user.mention, message.chat.title))
+            text="**#New_Approval\n\nName: {}\n\nChat: {} \n\n Join @sinimapremi**".format(message.from_user.mention, message.chat.title))
         )
         
         
