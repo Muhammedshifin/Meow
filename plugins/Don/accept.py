@@ -6,7 +6,7 @@ from pyrogram.errors import UserNotParticipant
 from pyrogram.errors.exceptions.flood_420 import FloodWait
 import random, asyncio
 from pyrogram.types import Message, User, ChatJoinRequest
-
+from info import LOG_CHANNEL, ACC_SND_LOG
 
 gif = [
     'https://telegra.ph/file/7e38c0e9a6b6051199f92.mp4',
@@ -38,7 +38,7 @@ async def approve(client: Client, message: Message):
         await client.send_message(
             chat_id=LOG_CHANNEL
             text="*#New_Approval\n\nName: {}\n\nChat: {} \n\n Join @sinimapremi**".format(message.from_user.mention, message.chat.title))
-            
+        )
         
         
     
