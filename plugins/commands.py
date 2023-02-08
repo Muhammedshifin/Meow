@@ -473,7 +473,7 @@ async def settings(client, message):
             text=f"<b>𝙲𝙷𝙰𝙽𝙶𝙴 𝚃𝙷𝙴 𝙱𝙾𝚃 𝚂𝙴𝚃𝚃𝙸𝙽𝙶𝚂 𝙵𝙾𝚁 {title}../</b>",
             reply_markup=reply_markup,
             disable_web_page_preview=True,
-            parse_mode="html",
+            parse_mode=enums.ParseMode.HTML,
             reply_to_message_id=message.message_id
         )
 
@@ -562,27 +562,5 @@ async def deletemultiplefiles(bot, message):
         text="<b>Select the type of files you want to delete !\n\nThis will delete 100 files from the database for the selected type.</b>",
         reply_markup=InlineKeyboardMarkup(btn)
     )     
-@Client.on_message(filters.private & filters.photo)
-async def ocr(bot, msg):
-    lang_code = await bot.ask(msg.chat.id,'`Now send the ISO language code.`\n\n[List of ISO 639-2 language codes](https://en.m.wikipedia.org/wiki/List_of_ISO_639-2_codes)', filters=filters.text, parse_mode='Markdown', disable_web_page_preview=True)
-    data_url = f"https://github.com/tesseract-ocr/tessdata/raw/main/{lang_code.text}.traineddata"
-    dirs = r"/app/vendor/tessdata"
-    path = os.path.join(dirs, f"{lang_code.text}.traineddata")
-    if not os.path.exists(path):
-        data = requests.get(data_url, allow_redirects=True, headers={'User-Agent': 'Mozilla/5.0'})
-        if data.status_code == 200:
-            open(path, 'wb').write(data.content)
-        else:
-            return await msg.reply("`Either the lang code is wrong or the lang is not supported.`", parse_mode='md')
-    message = await msg.reply("`Downloading and Extracting...`", parse_mode='md')
-    image = await msg.download(file_name=f"text_{msg.from_user.id}.jpg")
-    img = Image.open(image)
-    text = pytesseract.image_to_string(img, lang=f"{lang_code.text}")
-    try:
-        await msg.reply(text[:-1], quote=True, disable_web_page_preview=True)
-    except MessageEmpty:
-        return await msg.reply("`Either the image has no text or the text is not recognizable.`", quote=True, parse_mode='md')
-    await message.delete()
-    os.remove(image)
 
-#No More 
+@
